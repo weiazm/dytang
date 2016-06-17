@@ -1,10 +1,12 @@
 package why;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 /**
  * @title ResultWriter
@@ -18,11 +20,14 @@ public class ResultWriter implements Serializable {
     private String filePath = null;
     private BufferedWriter writer = null;
 
-    public ResultWriter(String filePath) throws IOException {
+    public ResultWriter(String filePath) {
         this.setFilePath(filePath);
-        FileOutputStream fos = new FileOutputStream(filePath);
-        OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
-        this.writer = new BufferedWriter(osw);
+        try {
+            this.writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath), "UTF-8"));
+        } catch (UnsupportedEncodingException | FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
     }
 

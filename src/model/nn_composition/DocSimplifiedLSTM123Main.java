@@ -1,5 +1,7 @@
 package model.nn_composition;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +16,6 @@ import duyuNN.LinearLayer;
 import duyuNN.SoftmaxLayer;
 import duyuNN.combinedLayer.LookupLinearTanh;
 import duyuNN.combinedLayer.SimplifiedLSTMLayer;
-import evaluationMetric.Metric;
 import why.ResultWriter;
 import why.SerializeUtil;
 
@@ -36,8 +37,9 @@ import why.SerializeUtil;
 // -outputFile data/result/result.txt
 
 public class DocSimplifiedLSTM123Main {
-    private ResultWriter resultWriter;
-    private static String testFile;
+    private ResultWriter resultWriter =
+        new ResultWriter("D:/workSpace/PycharmSpace/crawler/assemble/emotion/content_result.txt");
+    private static String testFile = "D:/workSpace/PycharmSpace/crawler/assemble/emotion/content.txt";
 
     LookupLinearTanh xseedLLT1;
     LookupLinearTanh xseedLLT2;
@@ -53,6 +55,10 @@ public class DocSimplifiedLSTM123Main {
     SoftmaxLayer softmax;
 
     HashMap<String, Integer> wordVocab = null;
+
+    public DocSimplifiedLSTM123Main() {
+
+    }
 
     public DocSimplifiedLSTM123Main(String embeddingFileWord, int embeddingLengthWord, int windowSizeWordLookup1,
         int windowSizeWordLookup2, int windowSizeWordLookup3, int outputLengthWordLookup, int classNum,
@@ -185,34 +191,79 @@ public class DocSimplifiedLSTM123Main {
             }
 
             System.out.println("============= finish training round: " + round + " ==============");
-            // dump(round);
-            // SerializeUtil.serializeToFile(resultWriter, "resultWriter");
-            // resultWriter = null;
-            SerializeUtil.serializeToFile(testFile, "testFile");
-            // testFile = null;
-            SerializeUtil.serializeToFile(xseedLLT1, "xseedLLT1");
-            // xseedLLT1 = null;
-            SerializeUtil.serializeToFile(xseedLLT2, "xseedLLT2");
-            // xseedLLT2 = null;
-            SerializeUtil.serializeToFile(xseedLLT3, "xseedLLT3");
-            // xseedLLT3 = null;
-            SerializeUtil.serializeToFile(seedSimplifiedLSTM, "seedSimplifiedLSTM");
-            // seedSimplifiedLSTM = null;
-            SerializeUtil.serializeToFile(xseedInputLinear, "xseedInputLinear");
-            // xseedInputLinear = null;
-            SerializeUtil.serializeToFile(xseedForgetLinear, "xseedForgetLinear");
-            // xseedForgetLinear = null;
-            SerializeUtil.serializeToFile(xseedCandidateStatelinear, "xseedCandidateStatelinear");
-            // xseedCandidateStatelinear = null;
-            SerializeUtil.serializeToFile(linearForSoftmax, "linearForSoftmax");
-            // linearForSoftmax = null;
-            SerializeUtil.serializeToFile(softmax, "softmax");
-            // softmax = null;
-            SerializeUtil.serializeToFile(wordVocab, "wordVocab");
-            // wordVocab = null;
-            SerializeUtil.serializeToFile(trainDataList, "trainDataList");
-            // trainDataList = null;
+            // this.serialize();
             predict(round, roundNum);
+        }
+    }
+
+    private void serialize() throws FileNotFoundException, IOException {
+        // dump(round);
+        // SerializeUtil.serializeToFile(resultWriter, "resultWriter");
+        // resultWriter = null;
+        SerializeUtil.serializeToFile(testFile, "testFile");
+        // testFile = null;
+        SerializeUtil.serializeToFile(xseedLLT1, "xseedLLT1");
+        // xseedLLT1 = null;
+        SerializeUtil.serializeToFile(xseedLLT2, "xseedLLT2");
+        // xseedLLT2 = null;
+        SerializeUtil.serializeToFile(xseedLLT3, "xseedLLT3");
+        // xseedLLT3 = null;
+        SerializeUtil.serializeToFile(seedSimplifiedLSTM, "seedSimplifiedLSTM");
+        // seedSimplifiedLSTM = null;
+        SerializeUtil.serializeToFile(xseedInputLinear, "xseedInputLinear");
+        // xseedInputLinear = null;
+        SerializeUtil.serializeToFile(xseedForgetLinear, "xseedForgetLinear");
+        // xseedForgetLinear = null;
+        SerializeUtil.serializeToFile(xseedCandidateStatelinear, "xseedCandidateStatelinear");
+        // xseedCandidateStatelinear = null;
+        SerializeUtil.serializeToFile(linearForSoftmax, "linearForSoftmax");
+        // linearForSoftmax = null;
+        SerializeUtil.serializeToFile(softmax, "softmax");
+        // softmax = null;
+        SerializeUtil.serializeToFile(wordVocab, "wordVocab");
+        // wordVocab = null;
+        SerializeUtil.serializeToFile(trainDataList, "trainDataList");
+        // trainDataList = null;
+    }
+
+    private void unserialize() throws FileNotFoundException, IOException, ClassNotFoundException {
+        // dump(round);
+        // SerializeUtil.serializeToFile(resultWriter, "resultWriter");
+        // resultWriter = null;
+        testFile = (String) SerializeUtil.unserializeFromFile("testFile");
+        // testFile = null;
+        xseedLLT1 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("xseedLLT1");
+        // xseedLLT1 = null;
+        xseedLLT2 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("xseedLLT2");
+        // xseedLLT2 = null;
+        xseedLLT3 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("xseedLLT3");
+        // xseedLLT3 = null;
+        seedSimplifiedLSTM = (SimplifiedLSTMLayer) SerializeUtil.unserializeFromFile("seedSimplifiedLSTM");
+        // seedSimplifiedLSTM = null;
+        xseedInputLinear = (LinearLayer) SerializeUtil.unserializeFromFile("xseedInputLinear");
+        // xseedInputLinear = null;
+        xseedForgetLinear = (LinearLayer) SerializeUtil.unserializeFromFile("xseedForgetLinear");
+        // xseedForgetLinear = null;
+        xseedCandidateStatelinear = (LinearLayer) SerializeUtil.unserializeFromFile("xseedCandidateStatelinear");
+        // xseedCandidateStatelinear = null;
+        linearForSoftmax = (LinearLayer) SerializeUtil.unserializeFromFile("linearForSoftmax");
+        // linearForSoftmax = null;
+        softmax = (SoftmaxLayer) SerializeUtil.unserializeFromFile("softmax");
+        // softmax = null;
+        wordVocab = (HashMap<String, Integer>) SerializeUtil.unserializeFromFile("wordVocab");
+        // wordVocab = null;
+        trainDataList = (ArrayList<Data>) SerializeUtil.unserializeFromFile("trainDataList");
+        // trainDataList = null;
+    }
+
+    public void unserializePredict(int round, int roundNum) {
+        try {
+            this.unserialize();
+            this.predict(round, roundNum);
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -269,52 +320,70 @@ public class DocSimplifiedLSTM123Main {
             // System.out.println(predictedRating);
             if (round == roundNum) {
                 // this.resultWriter.write(data.toPredString());
-                if (idxData % 100 == 0)
-                    System.out.println(idxData);
+                // if (idxData % 100 == 0)
+                // System.out.println(idxData);
                 this.resultWriter.write(
                     data.userStr + "\t\t" + data.productStr + "\t\t" + predictedRating + "\t\t" + data.reviewText);
             }
+            System.out
+                .println(data.userStr + "\t\t" + data.productStr + "\t\t" + predictedRating + "\t\t" + data.reviewText);
         }
         if (round == roundNum) {
             this.resultWriter.close();
         }
 
-        Metric.calcMetric(goldList, predList);
+        // Metric.calcMetric(goldList, predList);
         System.out.println("============== finish predicting =================");
     }
 
     public static void main(String[] args) throws Exception {
-        HashMap<String, String> argsMap = Funcs.parseArgs(args);
-
-        System.out.println("==== begin configuration ====");
-        for (String key : argsMap.keySet()) {
-            System.out.println(key + "\t\t" + argsMap.get(key));
-        }
-        System.out.println("==== end configuration ====");
-
-        int embeddingLength = Integer.parseInt(argsMap.get("-embeddingLength"));
-        String embeddingFile = argsMap.get("-embeddingFile");
-        // windowsize = 1, 2 and 3 works well
-        int windowSizeWordLookup1 = Integer.parseInt(argsMap.get("-windowSizeWordLookup1"));
-        int windowSizeWordLookup2 = Integer.parseInt(argsMap.get("-windowSizeWordLookup2"));
-        int windowSizeWordLookup3 = Integer.parseInt(argsMap.get("-windowSizeWordLookup3"));
-        int outputLengthWordLookup = Integer.parseInt(argsMap.get("-outputLengthWordLookup"));
-        int classNum = Integer.parseInt(argsMap.get("-classNum"));
-
-        int roundNum = Integer.parseInt(argsMap.get("-roundNum"));
-        double probThreshold = Double.parseDouble(argsMap.get("-probThreshold"));
-        double learningRate = Double.parseDouble(argsMap.get("-learningRate"));
-        double randomizeBase = Double.parseDouble(argsMap.get("-randomizeBase"));
-
-        String trainFile = argsMap.get("-trainFile");
-        String testFile = argsMap.get("-testFile");
-        String outputFile = argsMap.get("-outputFile");
-
-        DocSimplifiedLSTM123Main main = new DocSimplifiedLSTM123Main(embeddingFile, embeddingLength,
-            windowSizeWordLookup1, windowSizeWordLookup2, windowSizeWordLookup3, outputLengthWordLookup, classNum,
-            trainFile, testFile, randomizeBase, outputFile);
-
-        main.run(roundNum, probThreshold, learningRate, classNum);
+        // HashMap<String, String> argsMap = Funcs.parseArgs(args);
+        //
+        // System.out.println("==== begin configuration ====");
+        // for (String key : argsMap.keySet()) {
+        // System.out.println(key + "\t\t" + argsMap.get(key));
+        // }
+        // System.out.println("==== end configuration ====");
+        //
+        // int embeddingLength = Integer.parseInt(argsMap.get("-embeddingLength"));
+        // String embeddingFile = argsMap.get("-embeddingFile");
+        // // windowsize = 1, 2 and 3 works well
+        // int windowSizeWordLookup1 = Integer.parseInt(argsMap.get("-windowSizeWordLookup1"));
+        // int windowSizeWordLookup2 = Integer.parseInt(argsMap.get("-windowSizeWordLookup2"));
+        // int windowSizeWordLookup3 = Integer.parseInt(argsMap.get("-windowSizeWordLookup3"));
+        // int outputLengthWordLookup = Integer.parseInt(argsMap.get("-outputLengthWordLookup"));
+        // int classNum = Integer.parseInt(argsMap.get("-classNum"));
+        //
+        // int roundNum = Integer.parseInt(argsMap.get("-roundNum"));
+        // double probThreshold = Double.parseDouble(argsMap.get("-probThreshold"));
+        // double learningRate = Double.parseDouble(argsMap.get("-learningRate"));
+        // double randomizeBase = Double.parseDouble(argsMap.get("-randomizeBase"));
+        //
+        // String trainFile = argsMap.get("-trainFile");
+        // String testFile = argsMap.get("-testFile");
+        // String outputFile = argsMap.get("-outputFile");
+        //
+        // DocSimplifiedLSTM123Main main = new DocSimplifiedLSTM123Main(embeddingFile, embeddingLength,
+        // windowSizeWordLookup1, windowSizeWordLookup2, windowSizeWordLookup3, outputLengthWordLookup, classNum,
+        // trainFile, testFile, randomizeBase, outputFile);
+        //
+        // // main.run(roundNum, probThreshold, learningRate, classNum);
+        DocSimplifiedLSTM123Main main = new DocSimplifiedLSTM123Main();
+        main.unserializePredict(1, 1);
 
     }
 }
+// -embeddingLength 100
+// -embeddingFile data/vectors_content_100_neg_25.txt
+// -windowSizeWordLookup1 1
+// -windowSizeWordLookup2 2
+// -windowSizeWordLookup3 3
+// -outputLengthWordLookup 50
+// -classNum 3
+// -roundNum 1
+// -probThreshold 0.001
+// -learningRate 0.03
+// -randomizeBase -0.01
+// -trainFile data/content_label.txt
+// -testFile D:/workSpace/PycharmSpace/crawler/assemble/emotion/content.txt
+// -outputFile D:/workSpace/PycharmSpace/crawler/assemble/emotion/content_result.txt
