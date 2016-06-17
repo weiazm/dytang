@@ -1,8 +1,9 @@
 package duyuNN;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class SigmoidLayer implements NNInterface {
+public class SigmoidLayer implements NNInterface, Serializable {
 
     public int length;
     public int linkId;

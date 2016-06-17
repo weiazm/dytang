@@ -1,8 +1,9 @@
 package duyuNN;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class MultiConnectLayer implements NNInterface {
+public class MultiConnectLayer implements NNInterface, Serializable {
 
     public int[] inputLengths;
 

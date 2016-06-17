@@ -78,8 +78,8 @@ public class LinearLayer implements NNInterface, Serializable {
         MathOp.Axpb(W, input, b, output);
     }
 
-    List<Integer> dropedInputIdxes;
-    List<Integer> dropedOutputIdxes;
+    ArrayList<Integer> dropedInputIdxes;
+    ArrayList<Integer> dropedOutputIdxes;
 
     public void forwardWithDropout(double dropedRatio) {
         if (null == dropedInputIdxes) {

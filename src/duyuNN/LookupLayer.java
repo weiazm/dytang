@@ -1,9 +1,10 @@
 package duyuNN;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Random;
 
-public class LookupLayer implements NNInterface {
+public class LookupLayer implements NNInterface, Serializable {
     // y = Wx + b
     public double[][] table;
 

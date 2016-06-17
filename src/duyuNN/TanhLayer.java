@@ -1,8 +1,9 @@
 package duyuNN;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class TanhLayer implements NNInterface {
+public class TanhLayer implements NNInterface, Serializable {
 
     public double[] input;
     public double[] inputG;

@@ -15,8 +15,8 @@ import duyuNN.SoftmaxLayer;
 import duyuNN.combinedLayer.LookupLinearTanh;
 import duyuNN.combinedLayer.SimplifiedLSTMLayer;
 import evaluationMetric.Metric;
-import why.Beeper;
 import why.ResultWriter;
+import why.SerializeUtil;
 
 // running shell is:
 //
@@ -102,8 +102,8 @@ public class DocSimplifiedLSTM123Main {
         resultWriter = new ResultWriter(outputFile);
     }
 
-    List<Data> trainDataList;
-    List<Data> testDataList;
+    ArrayList<Data> trainDataList;
+    ArrayList<Data> testDataList;
 
     public void loadData(String trainFile, String testFile) {
         System.out.println("================ start loading corpus ==============");
@@ -186,6 +186,32 @@ public class DocSimplifiedLSTM123Main {
 
             System.out.println("============= finish training round: " + round + " ==============");
             // dump(round);
+            // SerializeUtil.serializeToFile(resultWriter, "resultWriter");
+            // resultWriter = null;
+            SerializeUtil.serializeToFile(testFile, "testFile");
+            // testFile = null;
+            SerializeUtil.serializeToFile(xseedLLT1, "xseedLLT1");
+            // xseedLLT1 = null;
+            SerializeUtil.serializeToFile(xseedLLT2, "xseedLLT2");
+            // xseedLLT2 = null;
+            SerializeUtil.serializeToFile(xseedLLT3, "xseedLLT3");
+            // xseedLLT3 = null;
+            SerializeUtil.serializeToFile(seedSimplifiedLSTM, "seedSimplifiedLSTM");
+            // seedSimplifiedLSTM = null;
+            SerializeUtil.serializeToFile(xseedInputLinear, "xseedInputLinear");
+            // xseedInputLinear = null;
+            SerializeUtil.serializeToFile(xseedForgetLinear, "xseedForgetLinear");
+            // xseedForgetLinear = null;
+            SerializeUtil.serializeToFile(xseedCandidateStatelinear, "xseedCandidateStatelinear");
+            // xseedCandidateStatelinear = null;
+            SerializeUtil.serializeToFile(linearForSoftmax, "linearForSoftmax");
+            // linearForSoftmax = null;
+            SerializeUtil.serializeToFile(softmax, "softmax");
+            // softmax = null;
+            SerializeUtil.serializeToFile(wordVocab, "wordVocab");
+            // wordVocab = null;
+            SerializeUtil.serializeToFile(trainDataList, "trainDataList");
+            // trainDataList = null;
             predict(round, roundNum);
         }
     }
@@ -281,7 +307,7 @@ public class DocSimplifiedLSTM123Main {
         double randomizeBase = Double.parseDouble(argsMap.get("-randomizeBase"));
 
         String trainFile = argsMap.get("-trainFile");
-        testFile = argsMap.get("-testFile");
+        String testFile = argsMap.get("-testFile");
         String outputFile = argsMap.get("-outputFile");
 
         DocSimplifiedLSTM123Main main = new DocSimplifiedLSTM123Main(embeddingFile, embeddingLength,
@@ -290,7 +316,5 @@ public class DocSimplifiedLSTM123Main {
 
         main.run(roundNum, probThreshold, learningRate, classNum);
 
-        // ½áÊø·äÃù
-        Beeper.beep();
     }
 }
