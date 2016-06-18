@@ -38,8 +38,8 @@ import why.SerializeUtil;
 
 public class DocSimplifiedLSTM123Main {
     private ResultWriter resultWriter =
-        new ResultWriter("D:/workSpace/PycharmSpace/crawler/assemble/emotion/content_result.txt");
-    private static String testFile = "D:/workSpace/PycharmSpace/crawler/assemble/emotion/content.txt";
+        new ResultWriter("D:/workSpace/PycharmSpace/crawler/assemble/files/emotion_result_file");
+    private static String testFile = "D:/workSpace/PycharmSpace/crawler/assemble/files/emotion_predict_file";
 
     LookupLinearTanh xseedLLT1;
     LookupLinearTanh xseedLLT2;
@@ -200,7 +200,7 @@ public class DocSimplifiedLSTM123Main {
         // dump(round);
         // SerializeUtil.serializeToFile(resultWriter, "resultWriter");
         // resultWriter = null;
-        SerializeUtil.serializeToFile(testFile, "testFile");
+        // SerializeUtil.serializeToFile(testFile, "testFile");
         // testFile = null;
         SerializeUtil.serializeToFile(xseedLLT1, "xseedLLT1");
         // xseedLLT1 = null;
@@ -230,29 +230,36 @@ public class DocSimplifiedLSTM123Main {
         // dump(round);
         // SerializeUtil.serializeToFile(resultWriter, "resultWriter");
         // resultWriter = null;
-        testFile = (String) SerializeUtil.unserializeFromFile("testFile");
+        // testFile = (String) SerializeUtil.unserializeFromFile("testFile");
         // testFile = null;
-        xseedLLT1 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("xseedLLT1");
+        xseedLLT1 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/xseedLLT1");
         // xseedLLT1 = null;
-        xseedLLT2 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("xseedLLT2");
+        xseedLLT2 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/xseedLLT2");
         // xseedLLT2 = null;
-        xseedLLT3 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("xseedLLT3");
+        xseedLLT3 = (LookupLinearTanh) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/xseedLLT3");
         // xseedLLT3 = null;
-        seedSimplifiedLSTM = (SimplifiedLSTMLayer) SerializeUtil.unserializeFromFile("seedSimplifiedLSTM");
+        seedSimplifiedLSTM =
+            (SimplifiedLSTMLayer) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/seedSimplifiedLSTM");
         // seedSimplifiedLSTM = null;
-        xseedInputLinear = (LinearLayer) SerializeUtil.unserializeFromFile("xseedInputLinear");
+        xseedInputLinear =
+            (LinearLayer) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/xseedInputLinear");
         // xseedInputLinear = null;
-        xseedForgetLinear = (LinearLayer) SerializeUtil.unserializeFromFile("xseedForgetLinear");
+        xseedForgetLinear =
+            (LinearLayer) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/xseedForgetLinear");
         // xseedForgetLinear = null;
-        xseedCandidateStatelinear = (LinearLayer) SerializeUtil.unserializeFromFile("xseedCandidateStatelinear");
+        xseedCandidateStatelinear =
+            (LinearLayer) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/xseedCandidateStatelinear");
         // xseedCandidateStatelinear = null;
-        linearForSoftmax = (LinearLayer) SerializeUtil.unserializeFromFile("linearForSoftmax");
+        linearForSoftmax =
+            (LinearLayer) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/linearForSoftmax");
         // linearForSoftmax = null;
-        softmax = (SoftmaxLayer) SerializeUtil.unserializeFromFile("softmax");
+        softmax = (SoftmaxLayer) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/softmax");
         // softmax = null;
-        wordVocab = (HashMap<String, Integer>) SerializeUtil.unserializeFromFile("wordVocab");
+        wordVocab =
+            (HashMap<String, Integer>) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/wordVocab");
         // wordVocab = null;
-        trainDataList = (ArrayList<Data>) SerializeUtil.unserializeFromFile("trainDataList");
+        trainDataList =
+            (ArrayList<Data>) SerializeUtil.unserializeFromFile("D:/workSpace/workSpace/dytang/trainDataList");
         // trainDataList = null;
     }
 
